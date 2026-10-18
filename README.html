@@ -1,0 +1,137 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0d16">
+<title>SHIPSHAPE — Release Readiness Scanner</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#0b0d16; --panel:#131727; --line:#293149;
+  --text:#f4f5fb; --muted:#a5aec5; --purple:#9a7bff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:radial-gradient(ellipse at 80% 0%,#292052 0,transparent 38%),var(--bg);
+  color:var(--text);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif
+}
+a{color:#c3b4ff;text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:Consolas,monospace}
+code{color:#d2c5ff}
+.wrap{width:min(1050px,calc(100% - 36px));margin:auto}
+header{border-bottom:1px solid var(--line);padding:22px 0}
+nav{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{font-weight:850;letter-spacing:.12em;color:white}
+nav div{display:flex;gap:18px;flex-wrap:wrap}
+.hero{text-align:center;padding:85px 0 65px}
+.pill{display:inline-block;padding:6px 13px;border:1px solid #51417f;border-radius:30px;color:#d2c5ff;background:#17122c;font-size:.82rem}
+h1{font-size:clamp(2.8rem,7vw,5rem);line-height:1.05;letter-spacing:-.05em;margin:24px 0 15px}
+.gradient{background:linear-gradient(90deg,#c7b9ff,#8c70ff,#88a5ff);background-clip:text;color:transparent}
+.lead{max-width:680px;margin:auto;color:var(--muted);font-size:1.15rem}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:27px}
+.btn{padding:11px 17px;border-radius:10px;border:1px solid var(--line);font-weight:700}
+.primary{background:#7656ed;color:white;border-color:#7656ed}
+.terminal{max-width:720px;margin:38px auto 0;text-align:left;background:#080a11;border:1px solid #303750;border-radius:14px;overflow:hidden}
+.termhead{padding:12px 16px;color:#8e99b4;border-bottom:1px solid #252b3e;font-size:.85rem}
+pre{padding:18px;overflow:auto;color:#dce1f1;margin:0;font-size:.9rem}
+.prompt{color:#75e0b2}
+section{padding:42px 0}
+.kicker{color:var(--purple);text-transform:uppercase;letter-spacing:.13em;font-weight:800;font-size:.78rem}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.035em;line-height:1.2;margin:8px 0}
+.sub,.card p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:25px}
+.card,.panel{background:linear-gradient(145deg,#171c2d,#101321);border:1px solid var(--line);border-radius:15px;padding:22px}
+.icon{color:#c3b4ff;font-size:1.3rem;margin-bottom:8px}
+h3{margin:0 0 7px}
+.card p{margin:0;font-size:.94rem}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--panel);margin-top:18px}
+pre.block{border:1px solid #303750;border-radius:10px;background:#080a11;margin:12px 0 18px}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;padding:12px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:#d2c5ff}td{color:var(--muted);font-size:.93rem}
+.notice{border:1px solid #5a492d;background:#211b12;border-radius:14px;padding:22px;color:#e7d7b5}
+.notice strong{color:#ffd27a}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:.9rem;margin-top:30px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.split{grid-template-columns:1fr}.hero{padding:60px 0 42px}section{padding:30px 0}}
+</style>
+</head>
+<body>
+<header><nav class="wrap">
+<a class="brand" href="#top">◈ SHIPSHAPE</a>
+<div><a href="#features">Features</a><a href="#install">Install</a><a href="#usage">Usage</a><a href="#limits">Limitations</a></div>
+</nav></header>
+<main id="top">
+<section class="hero wrap">
+<span class="pill">JavaScript release-readiness scanner</span>
+<h1>Ship smarter.<br><span class="gradient">Catch issues earlier.</span></h1>
+<p class="lead">Scan JavaScript projects for potential issues before release. Review findings through structured JSON and readable HTML reports.</p>
+<div class="actions"><a class="btn primary" href="#install">Get started →</a><a class="btn" href="#features">Explore features</a></div>
+<div class="terminal"><div class="termhead">Terminal · Quick start</div><pre><span class="prompt">$</span> shipshape ./my-project --fail-on-warning
+
+<span class="prompt">$</span> shipshape ./my-project --run-tests</pre></div>
+</section>
+
+<section class="wrap" id="features">
+<span class="kicker">Capabilities</span><h2>A practical first-pass review.</h2>
+<p class="sub">SHIPSHAPE surfaces potential problems; it does not replace code review, testing, or dedicated security tools.</p>
+<div class="grid">
+<article class="card"><div class="icon">⌕</div><h3>Relative imports</h3><p>Checks whether relative import paths appear to resolve to existing files.</p></article>
+<article class="card"><div class="icon">⚑</div><h3>TODO / FIXME</h3><p>Finds TODO and FIXME markers that may deserve attention before release.</p></article>
+<article class="card"><div class="icon">◇</div><h3>Possible secrets</h3><p>Flags patterns that may indicate hardcoded secrets. Review each finding manually.</p></article>
+<article class="card"><div class="icon">{ }</div><h3>Package configuration</h3><p>Checks package.json validity and selected common configuration issues.</p></article>
+<article class="card"><div class="icon">▶</div><h3>Optional tests</h3><p>With --run-tests, runs the target project's configured npm test script and records the result.</p></article>
+<article class="card"><div class="icon">▤</div><h3>Reports and exit codes</h3><p>Creates JSON and HTML reports and supports CI-friendly failure exit codes.</p></article>
+</div>
+</section>
+
+<section class="wrap" id="install">
+<span class="kicker">Installation</span><h2>Get it running locally.</h2>
+<p class="sub">Requires Node.js 18 or later. npm is needed for installation and for running project tests.</p>
+<div class="split">
+<div class="panel"><h3>Install the local package</h3><p class="sub">Run this from the directory containing the package file, or use its full path.</p><pre class="block">npm install -g ./shipshape-1.0.0.tgz</pre></div>
+<div class="panel"><h3>Confirm installation</h3><p class="sub">On Windows PowerShell, use the .cmd shim if execution policy blocks the .ps1 shim.</p><pre class="block">shipshape --help
+
+# PowerShell alternative
+shipshape.cmd --help</pre></div>
+</div>
+</section>
+
+<section class="wrap" id="usage">
+<span class="kicker">Quick start</span><h2>Scan, inspect, improve.</h2>
+<p class="sub">Replace ./my-project with the path to the project you want to scan.</p>
+<div class="split">
+<div class="panel">
+<h3>Run a scan</h3><pre class="block">shipshape ./my-project</pre>
+<h3>Fail on warnings or errors</h3><pre class="block">shipshape ./my-project --fail-on-warning</pre>
+<h3>Run configured tests</h3><pre class="block">shipshape ./my-project --run-tests</pre>
+</div>
+<div class="panel">
+<h3>CLI options</h3>
+<table><thead><tr><th>Option</th><th>Behavior</th></tr></thead><tbody>
+<tr><td><code>--help</code>, <code>-h</code></td><td>Display help.</td></tr>
+<tr><td><code>--fail-on-error</code></td><td>Exit with code 1 if errors are found.</td></tr>
+<tr><td><code>--fail-on-warning</code></td><td>Exit with code 1 if errors or warnings are found.</td></tr>
+<tr><td><code>--run-tests</code></td><td>Explicitly run the project's npm test script.</td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="panel"><h3>Where reports are saved</h3><p class="sub">SHIPSHAPE writes <code>shipshape-report.json</code> and <code>shipshape-report.html</code> to the current working directory—the directory from which you run the command, not necessarily the project being scanned.</p></div>
+</section>
+
+<section class="wrap" id="limits">
+<span class="kicker">Know the limits</span><h2>Useful signals, not a guarantee.</h2>
+<div class="notice">
+<strong>Early-stage software.</strong>
+<p>SHIPSHAPE uses heuristic checks. Findings may be false positives, and a clean scan does not guarantee that a project is secure, bug-free, or ready for release.</p>
+<p>Review findings and run appropriate tests independently. Only use <code>--run-tests</code> when you intend to execute the target project's configured test command; project scripts can execute arbitrary code.</p>
+<p>Independent testing and feedback are needed before relying on SHIPSHAPE in production.</p>
+</div>
+</section>
+</main>
+<footer><div class="wrap"><strong>SHIPSHAPE</strong> — Lightweight release-readiness checks for JavaScript projects.<br>Early-stage project. Review findings and validate results independently.</div></footer>
+</body>
+</html>

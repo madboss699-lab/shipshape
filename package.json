@@ -1,0 +1,29 @@
+{
+  "name": "shipshape",
+  "version": "1.0.0",
+  "description": "Release-readiness scanner for JavaScript projects",
+  "main": "shipshape.js",
+  "scripts": {
+    "test": "node shipshape.test.js"
+  },
+  "keywords": [
+    "release-readiness",
+    "code-scanner",
+    "javascript",
+    "developer-tools"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bin": {
+    "shipshape": "shipshape.js"
+  },
+  "files": [
+    "shipshape.js",
+    "README.md" ,
+    "README.html"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

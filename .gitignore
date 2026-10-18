@@ -1,0 +1,7 @@
+﻿shipshape-report.json
+shipshape-report.html
+shipshape-1.0.0.tgz
+node_modules/
+.env
+.env.*
+!.env.example
